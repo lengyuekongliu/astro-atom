@@ -8,6 +8,7 @@
     --color-accent-base: hsl(var(--theme-accent-base) / 1);
     --color-accent-one: hsl(var(--theme-accent-one) / 1);
     --color-accent-two: hsl(var(--theme-accent-two) / 1);
+	--color-lighter: var(--theme-lighter);
     --color-textColor: var(--theme-text);
     --color-color-950: var(--theme-color-950);
     --color-color-900: var(--theme-color-900);
