@@ -2,31 +2,52 @@
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import type { HTMLTag, Polymorphic } from "astro/types";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import { visit, EXIT } from "unist-util-visit";
+
+const processor = unified().use(remarkParse);
+
+function extractText(markdown: string) {
+	let text = "";
+	const tree = processor.parse(markdown);
+	visit(tree, "text", (node) => {
+		text += node.value;
+		if (text.length >= 500) return EXIT;
+	});
+	return text.slice(0, 500);
+}
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 	post: CollectionEntry<"post">;
-	withDesc?: boolean;
 };
 
 const { as: Tag = "div", post } = Astro.props;
+
+const description = post.data?.description || extractText(post.body || "");
 ---
 
 <div>
-	<Tag class="citrus-link font-medium text-accent-base mt-2.5">
+	<Tag
+		class="citrus-link font-medium text-base md:text-lg text-accent-base mt-2.5"
+	>
 		<a data-astro-prefetch href={`/posts/${post.id}/`}>
 			{post.data.title}
 		</a>
 	</Tag>
-	<p class="mt-0.5 line-clamp-3">{post.data.description}</p>
-	<FormattedDate
-		class="text-sm shrink-0 text-accent-two"
-		date={post.data.publishDate}
-		dateTimeOptions={{
-			// hour: "2-digit",
-			// minute: "2-digit",
-			year: "numeric",
-			month: "long",
-			day: "2-digit",
-		}}
-	/>
+	<p class="mt-0.5 line-clamp-3">{description}</p>
+	<div class="flex text-sm mt-0.5 text-accent-two gap-4">
+		<FormattedDate
+			class="shrink-0"
+			date={post.data.publishDate}
+			dateTimeOptions={{
+				// hour: "2-digit",
+				// minute: "2-digit",
+				year: "numeric",
+				month: "long",
+				day: "2-digit",
+			}}
+		/>
+		<a href={`/category/${post.data.category}`}>{post.data.category}</a>
+	</div>
 </div>

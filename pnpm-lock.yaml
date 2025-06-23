@@ -23,9 +23,21 @@ importers:
       pagefind:
         specifier: ^1.3.0
         version: 1.3.0
+      remark-parse:
+        specifier: ^11.0.0
+        version: 11.0.0
+      remark-stringify:
+        specifier: ^11.0.0
+        version: 11.0.0
       tailwindcss:
         specifier: ^4.1.10
         version: 4.1.10
+      unified:
+        specifier: ^11.0.5
+        version: 11.0.5
+      unist-util-visit:
+        specifier: ^5.0.0
+        version: 5.0.0
     devDependencies:
       '@iconify-json/material-symbols':
         specifier: ^1.2.27

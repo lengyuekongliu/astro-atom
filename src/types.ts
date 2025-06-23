@@ -4,6 +4,7 @@ export interface SiteConfig {
 		locale: string | string[] | undefined;
 		options: Intl.DateTimeFormatOptions;
 	};
+	icp?: string;
 	description: string;
 	lang: string;
 	ogLocale: string;
