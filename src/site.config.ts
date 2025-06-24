@@ -5,12 +5,7 @@ export const siteConfig: SiteConfig = {
 	author: "KongLiu",
 	// Date.prototype.toLocaleDateString() parameters, found in src/utils/date.ts.
 	date: {
-		locale: "zh-CN",
-		options: {
-			day: "numeric",
-			month: "short",
-			year: "numeric",
-		},
+		locale: "zh-CN"
 	},
 	// Used as the default description meta property and webmanifest description
 	description: "An opinionated starter theme for Astro",
@@ -30,7 +25,7 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "主页",
 	},
 	{
-		path: "/",
+		path: "/archive",
 		title: "归档",
 	},
 	{

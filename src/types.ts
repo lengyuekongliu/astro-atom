@@ -2,7 +2,6 @@ export interface SiteConfig {
 	author: string;
 	date: {
 		locale: string | string[] | undefined;
-		options: Intl.DateTimeFormatOptions;
 	};
 	icp?: string;
 	description: string;
@@ -12,7 +11,6 @@ export interface SiteConfig {
 }
 
 export interface PaginationLink {
-	srLabel?: string;
 	text?: string;
 	url: string;
 }
@@ -83,14 +81,14 @@ export interface Summary {
 export type AdmonitionType = "tip" | "note" | "important" | "caution" | "warning";
 
 export interface Badge {
-  variant?:
-    | "default"
-    | "accent"
-    | "accent-base"
-    | "accent-one"
-    | "accent-two"
-    | "muted"
-    | "outline";
-  showHash?: boolean;
-  title: string;
+	variant?:
+	| "default"
+	| "accent"
+	| "accent-base"
+	| "accent-one"
+	| "accent-two"
+	| "muted"
+	| "outline";
+	showHash?: boolean;
+	title: string;
 }

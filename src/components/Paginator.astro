@@ -1,0 +1,38 @@
+---
+import type { PaginationLink } from "@/types";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	nextUrl?: PaginationLink;
+	prevUrl?: PaginationLink;
+}
+
+const { nextUrl, prevUrl } = Astro.props;
+---
+
+{
+	(prevUrl || nextUrl) && (
+		<nav class="flex items-center gap-x-4 font-medium text-accent">
+			{prevUrl && (
+				<a
+					class="me-auto py-2 sm:hover:text-accent-two flex"
+					data-astro-prefetch
+					href={prevUrl.url}
+				>
+					<Icon name="material-symbols:chevron-left-rounded" size={24} />
+					{prevUrl.text ? prevUrl.text : "Previous"}
+				</a>
+			)}
+			{nextUrl && (
+				<a
+					class="ms-auto py-2 sm:hover:text-accent-two flex"
+					data-astro-prefetch
+					href={nextUrl.url}
+				>
+					{nextUrl.text ? nextUrl.text : "Next"}
+					<Icon name="material-symbols:chevron-right-rounded" size={24} />
+				</a>
+			)}
+		</nav>
+	)
+}

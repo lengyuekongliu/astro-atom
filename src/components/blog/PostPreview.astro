@@ -5,21 +5,22 @@ import type { HTMLTag, Polymorphic } from "astro/types";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import { visit, EXIT } from "unist-util-visit";
+import { Icon } from "astro-icon/components";
 
 const processor = unified().use(remarkParse);
 
 function extractText(markdown: string) {
-	let text = "";
-	const tree = processor.parse(markdown);
-	visit(tree, "text", (node) => {
-		text += node.value;
-		if (text.length >= 500) return EXIT;
-	});
-	return text.slice(0, 500);
+  let text = "";
+  const tree = processor.parse(markdown);
+  visit(tree, "text", (node) => {
+    text += node.value;
+    if (text.length >= 500) return EXIT;
+  });
+  return text.slice(0, 500);
 }
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
-	post: CollectionEntry<"post">;
+  post: CollectionEntry<"post">;
 };
 
 const { as: Tag = "div", post } = Astro.props;
@@ -28,26 +29,37 @@ const description = post.data?.description || extractText(post.body || "");
 ---
 
 <div>
-	<Tag
-		class="citrus-link font-medium text-base md:text-lg text-accent-base mt-2.5"
-	>
-		<a data-astro-prefetch href={`/posts/${post.id}/`}>
-			{post.data.title}
-		</a>
-	</Tag>
-	<p class="mt-0.5 line-clamp-3">{description}</p>
-	<div class="flex text-sm mt-0.5 text-accent-two gap-4">
-		<FormattedDate
-			class="shrink-0"
-			date={post.data.publishDate}
-			dateTimeOptions={{
-				// hour: "2-digit",
-				// minute: "2-digit",
-				year: "numeric",
-				month: "long",
-				day: "2-digit",
-			}}
-		/>
-		<a href={`/category/${post.data.category}`}>{post.data.category}</a>
-	</div>
+  <Tag
+    class="citrus-link font-medium text-base md:text-lg text-accent-base mt-2.5"
+  >
+    <a
+      data-astro-prefetch
+      href={`/posts/${post.id}`}
+      class="flex items-center group hover:text-accent-two"
+    >
+      <div>
+        {post.data.title}
+      </div>
+      <Icon
+        name="material-symbols:chevron-right-rounded"
+        class:list={"opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-none transition"}
+        size={26}
+      />
+    </a>
+  </Tag>
+  <p class="mt-0.5 line-clamp-3">{description}</p>
+  <div class="flex text-sm mt-0.5 text-accent-two gap-4">
+    <FormattedDate
+      class="shrink-0"
+      date={post.data.publishDate}
+      dateTimeOptions={{
+        // hour: "2-digit",
+        // minute: "2-digit",
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+      }}
+    />
+    <a href={`/category/${post.data.category}`}>{post.data.category}</a>
+  </div>
 </div>
