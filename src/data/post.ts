@@ -28,11 +28,19 @@ export function getAllTags(posts: CollectionEntry<"post">[]) {
 	return posts.flatMap((post) => [...post.data.tags]);
 }
 
+export function getAllCategories(posts: CollectionEntry<"post">[]) {
+	return posts.flatMap((post) => [post.data.category]);
+}
+
 /** returns all unique tags created from posts
  *  Note: This function doesn't filter draft posts, pass it the result of getAllPosts above to do so.
  *  */
 export function getUniqueTags(posts: CollectionEntry<"post">[]) {
 	return [...new Set(getAllTags(posts))];
+}
+
+export function getUniqueCategories(posts: CollectionEntry<"post">[]) {
+	return [...new Set(getAllCategories(posts))];
 }
 
 /** returns a count of each unique tag - [[tagName, count], ...]
@@ -46,3 +54,13 @@ export function getUniqueTagsWithCount(posts: CollectionEntry<"post">[]): [strin
 		),
 	].sort((a, b) => b[1] - a[1]);
 }
+
+export function getUniqueCategoriesWithCount(posts: CollectionEntry<"post">[]): [string, number][] {
+	return [
+		...getAllCategories(posts).reduce(
+			(acc, t) => acc.set(t, (acc.get(t) ?? 0) + 1),
+			new Map<string, number>(),
+		),
+	].sort((a, b) => b[1] - a[1]);
+}
+

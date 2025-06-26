@@ -1,0 +1,27 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import { getAllPosts, getUniqueCategoriesWithCount } from "@/data/post";
+
+const allPosts = await getAllPosts();
+const allCategories = getUniqueCategoriesWithCount(allPosts);
+---
+
+<PageLayout meta={{ title: "分类" }}>
+    <h1
+        class="font-semibold text-lg md:text-2xl text-accent-base mb-6 flex items-center gap-2 onload-animation"
+    >
+        <span>分类</span>
+    </h1>
+    <div class="ml-6 md:ml-12 text-xs md:text-base">
+        <ul class="grid gap-y-2 list-disc">
+            {
+                allCategories.map(([tag, val]) => (
+                    <li class="onload-animation">
+                        <a href={`/categories/${tag}`} class="text-accent-base hover:text-accent-two">{tag}</a>
+                        <span class="pl-1">({val})</span>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</PageLayout>

@@ -2,9 +2,7 @@
 import PageLayout from "@/layouts/PageLayout.astro";
 import { Icon } from "astro-icon/components";
 import { getAllPosts, groupPostsByYear } from "@/data/post";
-import PostPreview from "@/components/blog/PostPreview.astro";
 import FormattedDate from "@/components/FormattedDate.astro";
-import { undefined } from "astro:schema";
 
 const allPosts = await getAllPosts();
 const groupedByYear = groupPostsByYear(allPosts);

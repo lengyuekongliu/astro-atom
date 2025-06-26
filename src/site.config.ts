@@ -29,7 +29,7 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "归档",
 	},
 	{
-		path: "/posts/",
+		path: "/categories",
 		title: "分类",
 	},
 	{
