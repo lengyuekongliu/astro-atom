@@ -29,15 +29,11 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "归档",
 	},
 	{
-		path: "/categories",
-		title: "分类",
-	},
-	{
-		path: "/notes/",
+		path: "/tags",
 		title: "标签",
 	},
 	{
-		path: "/about/",
+		path: "/about",
 		title: "关于",
 	},
 ];

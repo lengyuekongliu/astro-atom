@@ -165,8 +165,10 @@ import { Icon } from "astro-icon/components";
                 closeMenuIcon.classList.remove("scale-100", "opacity-100");
             } else {
                 drawer.classList.remove("hidden");
-                drawerBody.classList.add("translate-y-0");
-                drawerBody.classList.remove("opacity-0", "-translate-y-full");
+                requestAnimationFrame(() => {
+                    drawerBody.classList.add("translate-y-0");
+                    drawerBody.classList.remove("opacity-0", "-translate-y-full");
+                })
 
                 openMenuIcon.classList.add("scale-0", "opacity-0");
                 closeMenuIcon.classList.add("scale-100", "opacity-100");

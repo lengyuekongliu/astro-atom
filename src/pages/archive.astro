@@ -31,19 +31,19 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
             </h4>
             <ul class="mb-8 mt-4 space-y-2 text-start">
               {groupedByYear[yearKey]?.map((p) => (
-                <li class="grid gap-2 grid-cols-[auto_1fr] text-xs md:text-base onload-animation">
+                <li class="flex flex-col grow sm:flex-row sm:items-center sm:justify-between onload-animation">
                   <FormattedDate
-                    class="shrink-0"
+                    class="text-sm shrink-0 text-lighter sm:order-2 sm:text-right"
                     date={p.data.publishDate}
-                    separator="-"
                     dateTimeOptions={{
-                      month: "2-digit",
+                      year: "numeric",
+                      month: "long",
                       day: "2-digit",
                     }}
                   />
                   <a
                     href={`/posts/${p.id}`}
-                    class="line-clamp-1 hover:text-accent-two"
+                    class="sm:line-clamp-1 hover:text-accent-two sm:order-1 sm:flex-gro text-accent-base"
                   >
                     {p.data.title}
                   </a>

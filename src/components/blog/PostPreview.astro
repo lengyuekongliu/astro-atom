@@ -48,7 +48,7 @@ const description = post.data?.description || extractText(post.body || "");
     </a>
   </Tag>
   <p class="mt-0.5 line-clamp-3">{description}</p>
-  <div class="flex text-sm mt-0.5 text-accent-two gap-4">
+  <div class="flex text-sm mt-0.5 text-lighter gap-4">
     <FormattedDate
       class="shrink-0"
       date={post.data.publishDate}
@@ -60,6 +60,18 @@ const description = post.data?.description || extractText(post.body || "");
         day: "2-digit",
       }}
     />
-    <a href={`/category/${post.data.category}`}>{post.data.category}</a>
+    <div class="hidden gap-2 text-lighter md:flex">
+      {
+        post.data.tags.map((tag: string) => (
+          <a
+            class="hover:text-accent-two"
+            aria-label={`View all posts with the tag: ${tag}`}
+            href={`/tags/${tag}`}
+          >
+            #{tag}
+          </a>
+        ))
+      }
+    </div>
   </div>
 </div>
