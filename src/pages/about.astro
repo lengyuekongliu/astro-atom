@@ -1,41 +1,27 @@
 ---
 import PageLayout from "@/layouts/PageLayout.astro";
+import { getEntry } from "astro:content";
 
 const meta = {
     description: "I'm a starter theme for Astro.build",
     title: "关于",
 };
+
+const aboutPost = await getEntry("spec", "about")!;
+
+const { Content } = await aboutPost.render();
 ---
 
 <PageLayout meta={meta}>
-    <h1
-        class="font-semibold text-lg md:text-2xl text-accent-base mb-6 flex items-center gap-2 onload-animation"
+    <div
+        class="flex sm:grid-cols-[auto_1fr] md:items-start gap-x-8 onload-animation"
     >
-        关于
-    </h1>
-    <div class="prose prose-citrus max-w-none onload-animation">
-        <p>
-            Hi, I’m a starter Astro. I’m particularly great for getting you
-            started with your own blogging website.
-        </p>
-        <p>Here are my some of my awesome built in features:</p>
-        <ul class="list-inside list-disc" role="list">
-            <li>I'm ultra fast as I'm a static site</li>
-            <li>I'm fully responsive</li>
-            <li>I come with a light and dark mode</li>
-            <li>I'm easy to customise and add additional content</li>
-            <li>I have Tailwind CSS styling</li>
-            <li>Shiki code syntax highlighting</li>
-            <li>Satori for auto generating OG images for blog posts</li>
-        </ul>
-        <p>
-            Clone or fork my <a
-                aria-label="github repository"
-                class="citrus-link inline-block"
-                href="https://github.com/artemkutsan/astro-citrus"
-                rel="noreferrer"
-                target="_blank">repo</a
-            > if you like me!
-        </p>
+        <article class="grid flex-grow grid-cols-1 break-words pt-4">
+            <div
+                class="prose prose-citrus max-w-none flex-grow prose-headings:font-semibold prose-headings:text-accent-base prose-headings:before:text-accent-two sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none"
+            >
+                <Content />
+            </div>
+        </article>
     </div>
 </PageLayout>
