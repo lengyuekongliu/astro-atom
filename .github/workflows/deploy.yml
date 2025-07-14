@@ -48,7 +48,6 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
           # 同步 dist 目录到服务器
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" ./dist/ $SERVER_USER@$SERVER_IP:/var/www/kongliu.net
           # 重启 NGINX
