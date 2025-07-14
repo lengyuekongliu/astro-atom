@@ -1,0 +1,34 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button
+    id="to-top-button"
+    class="translate-y-28 transition-all opacity-0 hidden z-10 fixed bottom-4 md:bottom-32 right-4 md:right-[calc(100vw_/_2_-_32rem)] w-12 h-12 md:flex items-center justify-center rounded-full shadow-md bg-color-50 cursor-pointer data-[show=true]:translate-y-0 data-[show=true]:opacity-100"
+>
+    <Icon
+        name="material-symbols:keyboard-arrow-up-rounded"
+        class="text-4xl text-lighter hover:text-accent-two"
+    />
+</button>
+
+<script>
+    const scrollBtn = document.getElementById(
+        "to-top-button",
+    ) as HTMLButtonElement;
+    const targetHeader = document.querySelector("header") as HTMLElement;
+
+    function callback(entries: IntersectionObserverEntry[]) {
+        entries.forEach((entry) => {
+            // Show the scroll to top button when the <header> is out of view
+            scrollBtn.dataset.show = (!entry.isIntersecting).toString();
+        });
+    }
+
+    scrollBtn.addEventListener("click", () => {
+        document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
+    });
+
+    const observer = new IntersectionObserver(callback);
+    observer.observe(targetHeader);
+</script>

@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header.astro";
 import Footer from "@/components/layout/Footer.astro";
 import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
+import ToTopButton from "@/components/ToTopButton.astro";
 
 interface Props {
 	meta: SiteMeta;
@@ -30,7 +31,6 @@ const {
 	<body class="relative m-auto min-h-screen w-full max-w-6xl grow bg-bgColor">
 		<ThemeProvider />
 		<div class="relative flex min-h-screen w-full">
-			<!-- Main container for the page content -->
 			<div id="container" class="relative m-auto max-w-4xl grow">
 				<div
 					class="m-auto grid min-h-screen md:grid-rows-[auto_auto_1fr] px-4 md:px-8 md:pt-4"
@@ -46,6 +46,7 @@ const {
 				</div>
 			</div>
 		</div>
+		<ToTopButton />
 	</body>
 </html>
 
