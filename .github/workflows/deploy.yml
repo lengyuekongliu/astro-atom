@@ -18,15 +18,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22' # 根据你的 Astro 项目调整 Node 版本
-          cache: 'npm'
+          cache: 'pnpm'
+
+      # 安装 pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       # 安装依赖
       - name: Install Dependencies
-        run: npm install
+        run: pnpm install
 
       # 构建 Astro 项目
       - name: Build Astro
-        run: npm run build
+        run: pnpm run build
 
       # 部署到 NGINX 服务器
       - name: Deploy to Server
