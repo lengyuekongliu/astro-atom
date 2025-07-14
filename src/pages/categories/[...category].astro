@@ -1,0 +1,51 @@
+---
+import { getAllPosts, getUniqueCategories } from "@/data/post";
+import PageLayout from "@/layouts/PageLayout.astro";
+import { collectionDateSort } from "@/utils/date";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { Icon } from "astro-icon/components";
+import type { CollectionEntry } from "astro:content";
+
+export const getStaticPaths: GetStaticPaths = async ({}) => {
+  const allPosts = await getAllPosts();
+  const sortedPosts = allPosts.sort(collectionDateSort);
+  const uniqueCategories = getUniqueCategories(sortedPosts);
+
+  return uniqueCategories.map((category) => {
+    const filterPosts = sortedPosts.filter(
+      (post) => post.data.category === category,
+    );
+    return {
+      params: { category: category },
+      props: { category, posts: filterPosts },
+    };
+  });
+};
+interface Props {
+  posts: CollectionEntry<"post">[];
+  category: string;
+}
+
+const { category, posts } = Astro.props;
+---
+
+<PageLayout meta={{ title: `分类：${category}` }}>
+  <h1
+    class="font-semibold text-lg md:text-2xl text-accent-base mb-6 flex items-center gap-2 onload-animation"
+  >
+    <div class="items-center flex">
+      <a href="/categories" class="text-accent-two">分类</a>
+      <Icon
+        name="material-symbols:arrow-right-alt-rounded"
+        class="mx-2"
+        size={32}
+      />
+      <span>{category}</span>
+    </div>
+  </h1>
+  <div class="">
+    <ul>
+      {posts.map((p) => <li class="onload-animation">{p.data.title}</li>)}
+    </ul>
+  </div>
+</PageLayout>

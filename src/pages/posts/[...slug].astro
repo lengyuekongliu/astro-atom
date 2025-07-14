@@ -1,0 +1,83 @@
+---
+import { getAllPosts } from "@/data/post";
+import PostLayout from "@/layouts/PostLayout.astro";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { Icon } from "astro-icon/components";
+import { render } from "astro:content";
+
+export const getStaticPaths = (async () => {
+    const blogEntries = await getAllPosts();
+    return blogEntries.map((post) => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout post={post}>
+    <button
+        id="button-copy"
+        class="flex h-8 w-8 items-center flex-shrink-0 bg-accent-base/10 hover:bg-accent-base/20 justify-center rounded-lg hover:brightness-110 absolute top-2 right-2 text-accent-base cursor-pointer group"
+        aria-label="Table of Contents"
+    >
+        <Icon
+            aria-hidden="true"
+            class="absolute start-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 transition-all group-[&.copied]:scale-0 scale-100 group-[&.copied]:opacity-0 optional-100 ease-linear"
+            focusable="false"
+            name="material-symbols:content-copy"
+        />
+        <Icon
+            aria-hidden="true"
+            class="absolute start-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 transition-all scale-0 group-[&.copied]:scale-100 group-[&.copied]:opacity-100 optional-0 ease-linear"
+            focusable="false"
+            name="material-symbols:check-rounded"
+        />
+    </button>
+    <Content />
+</PostLayout>
+
+<style is:inline>
+    .material-symbols--content-copy {
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm-4 4q-.825 0-1.412-.587T3 20V6h2v14h11v2z'/%3E%3C/svg%3E");
+    }
+</style>
+
+<script>
+    const buttonCopy = document.getElementById("button-copy");
+    console.log(buttonCopy);
+    const pres = document.querySelectorAll(".astro-code");
+
+    pres.forEach((pre) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "relative";
+        pre.parentNode!.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const button = buttonCopy!.cloneNode(true) as HTMLButtonElement;
+        button.onclick = function () {
+            const code = pre.textContent;
+            navigator.clipboard
+                .writeText(code!)
+                .then(() => {
+                    button.classList.add("copied");
+                    setTimeout(() => {
+                        button.classList.remove("copied");
+                    }, 2000);
+                })
+                .catch((err) => {
+                    console.error("Copy failed:", err);
+                });
+        };
+        wrapper.appendChild(button);
+    });
+
+    buttonCopy?.remove();
+</script>
