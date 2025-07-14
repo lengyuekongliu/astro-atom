@@ -1,0 +1,75 @@
+---
+import FormattedDate from "@/components/FormattedDate.astro";
+import { getAllPosts, getUniqueTags } from "@/data/post";
+import PageLayout from "@/layouts/PageLayout.astro";
+import { collectionDateSort } from "@/utils/date";
+import type { GetStaticPaths } from "astro";
+import { Icon } from "astro-icon/components";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+    posts: CollectionEntry<"post">[];
+};
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+    const allPosts = await getAllPosts();
+    const sortedPosts = allPosts.sort(collectionDateSort);
+    const uniqueTags = getUniqueTags(sortedPosts);
+
+    return uniqueTags.flatMap((tag) => {
+        const filterPosts = sortedPosts.filter((post) =>
+            post.data.tags.includes(tag),
+        );
+        return {
+            params: { tag: tag },
+            props: { tag, posts: filterPosts },
+        };
+    });
+};
+
+const { posts } = Astro.props;
+const { tag } = Astro.params;
+---
+
+<PageLayout meta={{ title: "1111" }}>
+    <h1
+        class="font-semibold text-lg md:text-2xl text-accent-base mb-6 flex items-center gap-2 onload-animation"
+    >
+        <div class="items-center flex">
+            <a href="/tags" class="text-accent-two">标签</a>
+            <Icon
+                name="material-symbols:arrow-right-alt-rounded"
+                class="mx-2"
+                size={32}
+            />
+            <span>#{tag}</span>
+        </div>
+    </h1>
+    <div class="grid gap-y-8 sm:grid-cols-[1fr_auto] sm:gap-x-8">
+        <section aria-label="Blog post list" class="grow">
+            <ul class="mb-8 mt-4 space-y-2 text-start">
+                {
+                    posts?.map((p) => (
+                        <li class="flex flex-col grow sm:flex-row sm:items-center sm:justify-between onload-animation">
+                            <FormattedDate
+                                class="text-sm shrink-0 text-lighter sm:order-2 sm:text-right"
+                                date={p.data.publishDate}
+                                dateTimeOptions={{
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "2-digit",
+                                }}
+                            />
+                            <a
+                                href={`/posts/${p.id}`}
+                                class="sm:line-clamp-1 hover:text-accent-two sm:order-1 sm:flex-gro text-accent-base"
+                            >
+                                {p.data.title}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </section>
+    </div>
+</PageLayout>

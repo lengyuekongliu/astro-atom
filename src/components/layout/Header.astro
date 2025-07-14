@@ -1,0 +1,209 @@
+---
+import Search from "@/components/Search.astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import { siteConfig, menuLinks } from "@/site.config";
+import { Icon } from "astro-icon/components";
+---
+
+<header
+    id="main-header"
+    class="fixed px-4 md:px-0 left-0 z-20 flex items-center md:relative top-0 h-16 w-full bg-bgColor shadow md:shadow-none md:bg-transparent overflow-hidden"
+>
+    <div class="w-full justify-between sm:flex-col">
+        <div class="flex items-center gap-x-2">
+            <a
+                aria-label={siteConfig.title}
+                aria-current={Astro.url.pathname === "/" ? "page" : false}
+                class="group flex h-6 md:h-8 items-center hover:filter-none sm:relative"
+                href="/"
+            >
+                <div title={siteConfig.title}>
+                    <svg
+                        class="inline-block size-6 md:size-8 fill-current text-accent-base dark:text-accent-two drop-shadow-[0px_2.5px_2.5px_rgba(0,0,0,0.35)]"
+                    >
+                        <use href="/brand.svg#citrus"></use>
+                    </svg>
+                </div>
+
+                <strong
+                    class="'max-[320px]:hidden' bg-clip-text text-transparent bg-gradient-to-r from-accent-one to-accent-two hidden md:text-2xl text-base xs:block z-10 mb-0.5 ms-2 group-hover:text-accent-one"
+                >
+                    {siteConfig.title}
+                </strong>
+            </a>
+            <nav
+                aria-label="Main menu"
+                class="top-20 text-sm mx-auto ml-auto hidden flex-col items-end justify-center gap-x-4 rounded-md font-medium text-accent-two shadow backdrop-blur group-[.menu-open]:z-50 group-[.menu-open]:flex sm:static sm:z-auto sm:flex-row sm:items-center sm:rounded-none sm:bg-transparent sm:shadow-none sm:backdrop-blur-none md:flex"
+                id="main-navigation-menu"
+            >
+                {
+                    menuLinks.map((link) => (
+                        <a
+                            aria-current={
+                                Astro.url.pathname === link.path
+                                    ? "page"
+                                    : false
+                            }
+                            class="underline-effect text-base"
+                            data-astro-prefetch
+                            href={link.path}
+                        >
+                            {link.title}
+                        </a>
+                    ))
+                }
+            </nav>
+
+            <div class="ml-auto w-fit">
+                <div
+                    id="buttons-panel"
+                    class="top-4 md:top-8 -ml-[4.5rem] flex space-x-2"
+                >
+                    <Search />
+                    <ThemeToggle />
+                </div>
+            </div>
+
+            <mobile-button
+                aria-expanded="false"
+                aria-haspopup="menu"
+                aria-label="Open main menu"
+                class="group relative h-8 w-8 rounded-lg bg-color-100 hover:bg-accent-base/10 text-accent-base md:invisible md:hidden"
+                id="toggle-nav-menu-mobile"
+                type="button"
+            >
+                <Icon
+                    id="open-nav-menu-icon"
+                    aria-hidden="true"
+                    class="absolute start-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 scale-100 opacity-100 transition-all"
+                    focusable="false"
+                    name="material-symbols:menu-rounded"
+                />
+                <Icon
+                    id="close-nav-menu-icon"
+                    aria-hidden="true"
+                    class="absolute start-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 scale-0 opacity-0 transition-all"
+                    focusable="false"
+                    name="material-symbols:close-rounded"
+                />
+            </mobile-button>
+        </div>
+    </div>
+</header>
+
+<div id="drawer" class="fixed inset-0 z-10 hidden" aria-hidden="true">
+    <div
+        id="drawer-body"
+        class="absolute inset-0 -translate-y-full transform backdrop-blur-xs transition-all duration-300 ease-in-out"
+    >
+        <nav
+            aria-label="Mobile navigation menu"
+            class="text-lg absolute inset-0 flex flex-col items-center justify-center gap-y-4 text-center font-medium text-accent-two"
+            id="nav-menu-mobile"
+        >
+            {
+                menuLinks.map((link) => (
+                    <a
+                        aria-current={
+                            Astro.url.pathname === link.path ? "page" : false
+                        }
+                        class="underline-offset-2 hover:underline"
+                        data-astro-prefetch
+                        href={link.path}
+                    >
+                        {link.title}
+                    </a>
+                ))
+            }
+        </nav>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const toggleNavMenuMobileButton = document.getElementById(
+            "toggle-nav-menu-mobile",
+        );
+        const openMenuIcon = document.getElementById("open-nav-menu-icon");
+        const closeMenuIcon = document.getElementById("close-nav-menu-icon");
+        const drawer = document.getElementById("drawer");
+
+        // Проверяем существование элементов
+        if (
+            !toggleNavMenuMobileButton ||
+            !openMenuIcon ||
+            !closeMenuIcon ||
+            !drawer
+        ) {
+            console.error(
+                "One or more required elements are missing in the DOM.",
+            );
+            return;
+        }
+
+        const drawerBody = document.getElementById("drawer-body");
+        if (!drawerBody) {
+            console.error("Drawer body element is missing in the DOM.");
+            return;
+        }
+
+        toggleNavMenuMobileButton.addEventListener("click", () => {
+            const isOpen =
+                toggleNavMenuMobileButton.getAttribute("aria-expanded") ===
+                "true";
+
+            if (isOpen) {
+                drawerBody.classList.add("opacity-0", "-translate-y-full");
+                drawerBody.classList.remove("translate-y-0");
+
+                setTimeout(() => {
+                    drawer.classList.add("hidden");
+                }, 300);
+
+                openMenuIcon.classList.add("scale-100", "opacity-100");
+                closeMenuIcon.classList.add("scale-0", "opacity-0");
+                closeMenuIcon.classList.remove("scale-100", "opacity-100");
+            } else {
+                drawer.classList.remove("hidden");
+                requestAnimationFrame(() => {
+                    drawerBody.classList.add("translate-y-0");
+                    drawerBody.classList.remove("opacity-0", "-translate-y-full");
+                })
+
+                openMenuIcon.classList.add("scale-0", "opacity-0");
+                closeMenuIcon.classList.add("scale-100", "opacity-100");
+                openMenuIcon.classList.remove("scale-100", "opacity-100");
+            }
+
+            toggleNavMenuMobileButton.setAttribute(
+                "aria-expanded",
+                (!isOpen).toString(),
+            );
+        });
+    });
+</script>
+
+<style>
+    .underline-effect {
+        position: relative;
+        display: inline-block;
+    }
+
+    .underline-effect::after {
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        height: 2px;
+        background-color: hsl(var(--theme-accent-two) / 1);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .underline-effect:hover::after {
+        transform: scaleX(1);
+        transform-origin: center;
+    }
+</style>

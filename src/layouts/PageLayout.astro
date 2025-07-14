@@ -1,0 +1,57 @@
+---
+import BaseHead from "@/components/BaseHead.astro";
+import ThemeProvider from "@/components/ThemeProvider.astro";
+import Header from "@/components/layout/Header.astro";
+import Footer from "@/components/layout/Footer.astro";
+import { siteConfig } from "@/site.config";
+import type { SiteMeta } from "@/types";
+import ToTopButton from "@/components/ToTopButton.astro";
+
+interface Props {
+	meta: SiteMeta;
+}
+
+const {
+	meta: { articleDate, description = siteConfig.description, ogImage, title },
+} = Astro.props;
+---
+
+<html
+	class="overflow-x-hidden grid scroll-pt-20 scroll-smooth font-lxgw text-textColor text-xl md:text-base antialiased"
+	lang={siteConfig.lang}
+>
+	<head>
+		<BaseHead
+			articleDate={articleDate}
+			description={description}
+			ogImage={ogImage}
+			title={title}
+		/>
+	</head>
+	<body class="relative m-auto min-h-screen w-full max-w-6xl grow bg-bgColor">
+		<ThemeProvider />
+		<div class="relative flex min-h-screen w-full">
+			<div id="container" class="relative m-auto max-w-4xl grow">
+				<div
+					class="m-auto grid min-h-screen md:grid-rows-[auto_auto_1fr] px-4 md:px-8 md:pt-4"
+				>
+					<Header />
+					<main
+						id="main"
+						class="relative flex-grow mt-20 md:mt-[3.5rem]"
+					>
+						<slot />
+					</main>
+					<Footer />
+				</div>
+			</div>
+		</div>
+		<ToTopButton />
+	</body>
+</html>
+
+<script is:inline>
+	document.querySelectorAll(".onload-animation").forEach((item, index) => {
+		item.style.animationDelay = `${index * 50}ms`;
+	});
+</script>

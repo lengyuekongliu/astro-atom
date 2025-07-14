@@ -1,0 +1,27 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import { getEntry } from "astro:content";
+
+const meta = {
+    description: "I'm a starter theme for Astro.build",
+    title: "关于",
+};
+
+const aboutPost = await getEntry("spec", "about")!;
+
+const { Content } = await aboutPost.render();
+---
+
+<PageLayout meta={meta}>
+    <div
+        class="flex sm:grid-cols-[auto_1fr] md:items-start gap-x-8 onload-animation"
+    >
+        <article class="grid flex-grow grid-cols-1 break-words pt-4">
+            <div
+                class="prose prose-citrus max-w-none flex-grow prose-headings:font-semibold prose-headings:text-accent-base prose-headings:before:text-accent-two sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none"
+            >
+                <Content />
+            </div>
+        </article>
+    </div>
+</PageLayout>
