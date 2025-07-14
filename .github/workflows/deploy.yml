@@ -13,6 +13,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+
+      # 设置 pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       # 设置 Node.js 环境
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -20,17 +27,13 @@ jobs:
           node-version: '22' # 根据你的 Astro 项目调整 Node 版本
           cache: 'pnpm'
 
-      # 安装 pnpm
-      - name: Install pnpm
-        run: npm install -g pnpm
-
       # 安装依赖
       - name: Install Dependencies
         run: pnpm install
 
       # 构建 Astro 项目
       - name: Build Astro
-        run: pnpm run build
+        run: pnpm build
 
       # 部署到 NGINX 服务器
       - name: Deploy to Server
