@@ -333,7 +333,9 @@ h6 {
         color: var(--theme-lighter);
         display: inline-block;
         margin-right: 1rem;
-        width: 1.5rem;
+        padding-right: 1rem;
+        border-right: 1px solid var(--theme-color-200);
+        width: 2.5rem;
         text-align: right;
       }
     }
