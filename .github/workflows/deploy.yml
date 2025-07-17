@@ -3,7 +3,7 @@ name: Deploy Astro to NGINX
 on:
   push:
     branches:
-      - deploy # 当推送到 main 分支时触发
+      - deploy # 当推送到 deploy 分支时触发
 
 jobs:
   build-and-deploy:
