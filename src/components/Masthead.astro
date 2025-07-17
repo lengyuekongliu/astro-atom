@@ -20,7 +20,7 @@ const { content } = Astro.props;
 <div class="md:top-8 md:z-10 flex items-end">
   <button
     id="toggle-toc"
-    class="hidden md:flex h-8 w-8 items-center flex-shrink-0 bg-accent-base/10 justify-center rounded-lg text-accent-base hover:brightness-110"
+    class="hidden mb-auto md:flex h-8 w-8 items-center flex-shrink-0 bg-accent-base/10 justify-center rounded-lg text-accent-base hover:brightness-110"
     aria-label="Table of Contents"
   >
     <!-- <Icon
@@ -37,7 +37,7 @@ const { content } = Astro.props;
     />
   </button>
   <h1
-    class="ml-2 font-semibold text-accent-base text-xl md:top-4 md:z-20 line-clamp-none md:line-clamp-1 md:max-w-[calc(100%-10rem)]"
+    class="ml-2 font-semibold text-accent-base text-xl md:top-4 md:z-20 line-clamp-none md:max-w-[calc(100%-10rem)]"
     title={content.data.title}
     data-pagefind-body
   >

@@ -1,5 +1,5 @@
 ---
-import { getFormattedDate } from "@/utils/date";
+import { formatDate } from "@/utils/date";
 import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"time"> & {
@@ -10,7 +10,7 @@ type Props = HTMLAttributes<"time"> & {
 
 const { date, separator, dateTimeOptions, ...attrs } = Astro.props;
 
-var postDate = getFormattedDate(date, dateTimeOptions);
+var postDate = formatDate(date);
 if (separator) {
 	postDate = postDate.replace("/", "-");
 }
