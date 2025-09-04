@@ -54,11 +54,6 @@ const { tag } = Astro.params;
                             <FormattedDate
                                 class="text-sm shrink-0 text-lighter sm:order-2 sm:text-right"
                                 date={p.data.publishDate}
-                                dateTimeOptions={{
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "2-digit",
-                                }}
                             />
                             <a
                                 href={`/posts/${p.id}`}

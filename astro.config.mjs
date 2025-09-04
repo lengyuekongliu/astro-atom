@@ -6,7 +6,6 @@ import icon from 'astro-icon';
 
 import remarkDirective from "remark-directive"; /* handle ::: directives as nodes */
 import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* add admonitions */
-import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 
 import mdx from '@astrojs/mdx';
 
@@ -26,6 +25,6 @@ export default defineConfig({
         dark: 'material-theme-darker',
       },
     },
-    remarkPlugins: [remarkReadingTime, remarkDirective, remarkAdmonitions],
+    remarkPlugins: [remarkDirective, remarkAdmonitions],
   }
 });
