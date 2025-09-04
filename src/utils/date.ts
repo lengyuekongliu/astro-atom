@@ -1,17 +1,14 @@
 import type { CollectionEntry } from "astro:content";
 import { siteConfig } from "@/site.config";
+import dayjs from "dayjs";
 
 export function getFormattedDate(
 	date: Date | undefined,
-	options?: Intl.DateTimeFormatOptions,
 ): string {
 	if (date === undefined) {
 		return "Invalid Date";
 	}
-
-	return new Intl.DateTimeFormat(siteConfig.date.locale, {
-		...options,
-	}).format(date);
+	return dayjs(date).format("YYYY年MM月DD日")
 }
 
 export function collectionDateSort(

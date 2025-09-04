@@ -2,19 +2,13 @@
 import { getFormattedDate } from "@/utils/date";
 import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<"time"> & {
+type Props = HTMLAttributes<"span"> & {
 	date: Date;
-	separator?: String;
-	dateTimeOptions?: Intl.DateTimeFormatOptions;
 };
 
-const { date, separator, dateTimeOptions, ...attrs } = Astro.props;
+const { date, ...attrs } = Astro.props;
 
-var postDate = getFormattedDate(date, dateTimeOptions);
-if (separator) {
-	postDate = postDate.replace("/", "-");
-}
-const ISO = date.toISOString();
+var postDate = getFormattedDate(date);
 ---
 
-<time datetime={ISO} title={ISO} {...attrs}>{postDate}</time>
+<span {...attrs}>{postDate}</span>

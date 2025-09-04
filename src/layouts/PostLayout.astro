@@ -19,16 +19,19 @@ const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
     <div class="onload-animation">
         <Masthead content={post} />
     </div>
-    <div class="mt-6 flex sm:grid-cols-[auto_1fr] md:items-start gap-x-8 onload-animation">
+    <div
+        class="mt-6 flex sm:grid-cols-[auto_1fr] md:items-start gap-x-8 onload-animation"
+    >
         <article
             class="grid flex-grow grid-cols-1 break-words pt-4"
             data-pagefind-body
         >
-            <div
-                class="prose prose-citrus max-w-none flex-grow prose-headings:font-semibold prose-headings:text-accent-base prose-headings:before:text-accent-two sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none sm:prose-headings:before:mr-1"
-            >
-                <slot />
-            </div>
+            <slot />
         </article>
+    </div>
+    <div class="flex items-center justify-center my-4">
+        <div class="flex-grow border-t border-gray-300"></div>
+        <span class="mx-4 text-accent-two">终</span>
+        <div class="flex-grow border-t border-gray-300"></div>
     </div>
 </PageLayout>

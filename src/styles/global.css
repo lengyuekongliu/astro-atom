@@ -203,28 +203,27 @@ html {
 }
 
 h1 {
-  @apply text-2xl md:pt-[0.0rem];
+  @apply text-lg md:text-2xl md:pt-[0.0rem];
 }
 
 h2 {
-  @apply text-xl md:pt-[0.215rem];
+  @apply text-base md:text-xl md:pt-[0.215rem];
 }
 
 h3 {
-  @apply text-lg md:pt-[0.250rem];
-  /* было 0.260 проверить!!! */
+  @apply text-sm md:text-lg md:pt-[0.250rem];
 }
 
 h4 {
-  @apply text-base md:pt-[0.425rem];
+  @apply text-sm md:text-base md:pt-[0.425rem];
 }
 
 h5 {
-  @apply text-base md:pt-[0.425rem];
+  @apply text-sm md:text-base md:pt-[0.425rem];
 }
 
 h6 {
-  @apply text-base md:pt-[0.425rem];
+  @apply text-sm md:text-base md:pt-[0.425rem];
 }
 
 h1,
@@ -234,6 +233,10 @@ h4,
 h5,
 h6 {
   @apply min-h-8 h-auto;
+}
+
+p {
+  @apply text-sm md:text-base;
 }
 
 .aside {

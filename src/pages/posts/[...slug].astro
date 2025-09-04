@@ -38,7 +38,11 @@ const { Content } = await render(post);
             name="material-symbols:check-rounded"
         />
     </button>
-    <Content />
+    <div
+        class="prose prose-citrus text-sm md:text-base max-w-none flex-grow prose-headings:font-semibold prose-headings:text-accent-base prose-headings:before:text-accent-two sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none sm:prose-headings:before:mr-1"
+    >
+        <Content />
+    </div>
 </PostLayout>
 
 <style is:inline>

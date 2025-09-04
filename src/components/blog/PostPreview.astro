@@ -52,13 +52,6 @@ const description = post.data?.description || extractText(post.body || "");
     <FormattedDate
       class="shrink-0"
       date={post.data.publishDate}
-      dateTimeOptions={{
-        // hour: "2-digit",
-        // minute: "2-digit",
-        year: "numeric",
-        month: "long",
-        day: "2-digit",
-      }}
     />
     <div class="hidden gap-2 text-lighter md:flex">
       {

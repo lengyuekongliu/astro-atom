@@ -15,6 +15,7 @@
     "@tailwindcss/vite": "^4.1.10",
     "astro": "^5.10.0",
     "astro-icon": "^1.1.5",
+    "dayjs": "^1.11.18",
     "hastscript": "^9.0.1",
     "mdast-util-directive": "^3.1.0",
     "mdast-util-to-markdown": "^2.1.2",
@@ -30,7 +31,7 @@
   "devDependencies": {
     "@iconify-json/material-symbols": "^1.2.27",
     "@tailwindcss/typography": "^0.5.16",
-    "reading-time": "latest",
-    "@types/mdast": "^4.0.4"
+    "@types/mdast": "^4.0.4",
+    "reading-time": "latest"
   }
 }
