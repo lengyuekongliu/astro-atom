@@ -326,6 +326,7 @@ p {
   }
 
   code {
+    @apply text-xs md:text-sm;
     padding: .1rem .25rem;
     border-radius: .3rem;
   }
