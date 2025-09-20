@@ -329,6 +329,10 @@ p {
     @apply text-xs md:text-sm;
   }
 
+  img {
+    @apply mx-auto;
+  }
+
   pre {
     code {
       >span {
