@@ -14,7 +14,7 @@ draft: false
 shader_type canvas_item;
 
 void fragment() {
-	COLOR = vec4(1, 0, 1, 1);
+    COLOR = vec4(1, 0, 1, 1);
 }
 ```
 ![](./shader-red.png)
@@ -24,7 +24,7 @@ void fragment() {
 shader_type canvas_item;
 
 void fragment() {
-	COLOR = texture(TEXTURE, UV);
+    COLOR = texture(TEXTURE, UV);
 }
 ```
 `TEXTURE`为传入的贴图，`UV`就是像素点的位置信息，简单来说就是取`TEXTURE`中对于`UV`位置的颜色。需要注意的是UV是一个标准化坐标，它的原点为**左下角**，值的范围为**[0, 1]**。
@@ -37,9 +37,9 @@ void fragment() {
 shader_type canvas_item;
 
 void fragment() {
-	vec4 color = texture(TEXTURE, UV);
-	float gray = 0.299 * color.r  + 0.587 * color.g + 0.114 * color.b;
-	COLOR = vec4(vec3(gray), color.a);
+    vec4 color = texture(TEXTURE, UV);
+    float gray = 0.299 * color.r  + 0.587 * color.g + 0.114 * color.b;
+    COLOR = vec4(vec3(gray), color.a);
 }
 ```
 
