@@ -49,4 +49,60 @@ void fragment() {
 
 以上就是对于贴图最基本的操作了。
 
+## 让贴图动起来
+
+UI中有一种非常场景的效果，比如卡片溶解消失的效果就可以使用Shader来实现。
+
+```glsl
+shader_type canvas_item;
+
+uniform float dissolve_value : hint_range(0.0, 1.0);
+uniform sampler2D noise_texture;
+
+void fragment() {
+    float noise = texture(noise_texture, UV).r;
+    if (noise < dissolve_value) {
+        COLOR.a = 0.0;
+    } else {
+        COLOR = texture(TEXTURE, UV);
+    }
+}
+```
+
+`dissolve_value`就是定义一个变量，这个变量可以在外部去控制。`noise_texture`就是一张噪声图，这个代码也很简单易懂就是通过判断噪声值的范围控制贴图Alpha。
+
+![](./shader-noise.png)
+
+当然这种消失比较单调，有时候希望的有那种被火烧掉的感觉。
+
+```glsl
+shader_type canvas_item;
+
+uniform float dissolve_value : hint_range(0.0, 1.0);
+uniform sampler2D noise_texture;
+uniform vec4 burn_color = vec4(1.0, 0.2, 0.0, 1.0);
+uniform float edge_width : hint_range(0.0, 0.2) = 0.05;
+
+void fragment() {
+    float noise = texture(noise_texture, UV).r;
+    vec4 base_col = texture(TEXTURE, UV);
+
+    float edge = 1.0 - smoothstep(dissolve_value, dissolve_value + edge_width, noise);
+    if (noise < dissolve_value) {
+        COLOR = vec4(0.0);
+    } else {
+        COLOR = base_col;
+    }
+
+    COLOR.rgb = mix(COLOR.rgb, burn_color.rgb, edge);
+}
+```
+
+最主要就是对边缘进行一个平滑插值计算，这样就可以获得一个边缘范围，然后根据插值结果做一个颜色混合，就会有被点燃的感觉。
+
+![](./shader-edge.png)
+
+
+
+如果`dissolve_value`外部使用代码去控制变化，就能实现一个溶解消失的效果，非常的简单有效。
 
