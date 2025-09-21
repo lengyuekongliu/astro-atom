@@ -27,7 +27,7 @@ void fragment() {
     COLOR = texture(TEXTURE, UV);
 }
 ```
-`TEXTURE`为传入的贴图，`UV`就是像素点的位置信息，简单来说就是取`TEXTURE`中对于`UV`位置的颜色。需要注意的是UV是一个标准化坐标，它的原点为**左下角**，值的范围为**[0, 1]**。
+`TEXTURE`为传入的贴图，`UV`就是像素点的位置信息，简单来说就是取`TEXTURE`中对于`UV`位置的颜色。需要注意的是UV是一个标准化坐标，它的原点为**左下角**，值的范围为[0, 1]。
 
 ![](./shader-texture.png)
 
@@ -51,7 +51,7 @@ void fragment() {
 
 ## 让贴图动起来
 
-UI中有一种非常场景的效果，比如卡片溶解消失的效果就可以使用Shader来实现。
+UI中有一种非常常见的效果，比如卡片溶解消失的效果就可以使用Shader来实现。
 
 ```glsl
 shader_type canvas_item;
