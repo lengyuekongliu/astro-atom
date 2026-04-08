@@ -82,5 +82,17 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			</article>
 		</main>
 		<Footer />
+
+		<script>
+			import Lenis from "lenis";
+
+			let lenis: Lenis | null = null;
+
+			document.addEventListener("astro:page-load", () => {
+				if (lenis) { lenis.destroy(); }
+
+				lenis = new Lenis({ autoRaf: true });
+			});
+		</script>
 	</body>
 </html>

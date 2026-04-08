@@ -5,6 +5,7 @@ import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
 import { SITE_TITLE } from '../consts';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -16,6 +17,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = FallbackImage } = Astro.props;
 ---
+<ClientRouter />
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
@@ -34,6 +36,10 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Font preloads -->
 <link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
 <link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
+
+<link rel="preconnect" href="https://font.sec.miui.com" crossorigin />
+<link rel="stylesheet" href="https://font.sec.miui.com/font/css?family=MiSans:400,700:MiSans" />
+<link rel="stylesheet" href="https://font.sec.miui.com/font/css?family=Source_Han_Serif:400,600:Source_Han_Serif" />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
