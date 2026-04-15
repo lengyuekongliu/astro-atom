@@ -7,16 +7,48 @@
 
  @theme {
   --font-sans: "MiSans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: "Source_Han_Serif", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif: "Noto Serif SC", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-lxgw-wenkai: "LXGW Wenkai Screen", serif;
+  --spacing-content: 864px;
+}
+
+:root {
+  --theme-background-color: #fdfdfd;
+  --theme-primary-color: #cb2a42;
+  --theme-content-color: #282728;
+  --theme-muted-color: #656768;
+
+}
+[data-theme="dark"] {
+  --theme-background-color: #212737;
+  --theme-primary-color: #2ABC89;
+  --theme-content-color: #eaedf3;
+  --theme-muted-color: #B4B6B9;
+}
+@theme inline {
+  --color-background: var(--theme-background-color);
+  --color-primary: var(--theme-primary-color);
+  --color-content: var(--theme-content-color);
+  --color-muted: var(--theme-muted-color);
+}
+
+@layer components {
+  .container-center {
+    @apply mx-auto w-full max-w-content px-4 sm:px-6;
+  }
 }
 
 @layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
-    @apply font-sans text-slate-900 bg-white antialiased;
+    @apply font-lxgw-wenkai bg-background text-content antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-bold tracking-tight text-slate-950;
+    @apply font-serif font-bold;
   }
 
   h1 { @apply text-4xl mb-8; }
