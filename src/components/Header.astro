@@ -2,6 +2,7 @@
 import { SITE_TITLE, MENU_LINKS } from "@/consts";
 import { Icon } from "astro-icon/components";
 import HeaderLink from "./HeaderLink.astro";
+import ThmeIcon from "@/components/ThmeIcon.astro";
 ---
 
 <header>
@@ -19,16 +20,8 @@ import HeaderLink from "./HeaderLink.astro";
 			}
 		</div>
 		<div class="flex gap-4">
-			<Icon name="material-symbols:search-rounded" class="icon-button" />
-			<Icon name="material-symbols:light-mode-rounded" class="icon-button" />
+			<Icon name="material-symbols:search-rounded" class="icon-button size-6" />
+			<ThmeIcon />
 		</div>
 	</nav>
 </header>
-
-<style>
-	@reference "@/styles/global.css";
-
-	.icon-button {
-		@apply size-6 text-muted hover:text-primary cursor-pointer drop-shadow-[0px_1.5px_1.5px_rgba(0,0,0,0.175)];
-	}
-</style>

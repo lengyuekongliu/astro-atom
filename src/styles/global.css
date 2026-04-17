@@ -5,6 +5,8 @@
  */
  @import "tailwindcss";
 
+ @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
  @theme {
   --font-sans: "MiSans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-serif: "Noto Serif SC", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
@@ -36,6 +38,10 @@
   .container-center {
     @apply mx-auto w-full max-w-content px-4 sm:px-6;
   }
+
+	.icon-button {
+		@apply size-6 text-muted hover:text-primary cursor-pointer drop-shadow-[0px_1.5px_1.5px_rgba(0,0,0,0.175)];
+	}
 }
 
 @layer base {

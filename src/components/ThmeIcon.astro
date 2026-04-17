@@ -1,0 +1,32 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button id="theme-toggle" class="relative size-6 text-muted hover:text-primary" aria-label="切换主题">
+    <Icon
+        name="material-symbols:light-mode-rounded"
+        class="absolute size-full inset-0 icon-button text-current scale-100 dark:scale-0 transition-all"
+    />
+    <Icon
+        name="material-symbols:dark-mode-rounded"
+        class="absolute size-full inset-0 icon-button text-current scale-0 dark:scale-100 transition-all"
+    />
+</button>
+
+<script>
+    const themeBtnClick = () => {
+        const currentTheme =
+            document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+    };
+
+    document.addEventListener("astro:page-load", () => {
+        const btn = document.getElementById("theme-toggle");
+        if (btn) {
+            btn.addEventListener("click", themeBtnClick);
+        }
+    });
+</script>
